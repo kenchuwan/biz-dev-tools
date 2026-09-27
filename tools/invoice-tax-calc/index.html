@@ -134,6 +134,11 @@
               <span class="text-sm font-bold text-rose-400 font-mono mt-0.5 block" id="res-withholding">-10,210 円</span>
             </div>
           </div>
+
+          <!-- クリップボードワンクリックコピーボタン（明細コピー） -->
+          <button id="copy-invoice-btn" class="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl font-bold text-xs flex items-center justify-center transition border border-slate-700">
+            <i class="fa-regular fa-copy mr-2 text-emerald-400"></i> この計算結果（明細）をコピーする
+          </button>
         </div>
 
         <!-- ★ 高CVRアフィリエイト連携カード -->
@@ -240,6 +245,23 @@
     }
 
     calculate();
+
+    // 明細コピー機能
+    const copyBtn = document.getElementById('copy-invoice-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const text = `【インボイス計算明細】\n・請求金額(税抜): ${Number(elAmount.value).toLocaleString()} 円\n・消費税: ${resTax.textContent}\n・源泉徴収税額: ${resWithholding.textContent}\n・手取り振込額: ${resNet.textContent} 円\n・請求総額(税込): ${resGross.textContent}\n※インボイス端数処理＆源泉徴収税額計算ツール調べ`;
+        navigator.clipboard.writeText(text).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '<i class="fa-solid fa-check text-emerald-400 mr-2"></i> コピーしました！';
+          copyBtn.classList.add('border-emerald-500', 'text-emerald-300');
+          setTimeout(() => {
+            copyBtn.innerHTML = original;
+            copyBtn.classList.remove('border-emerald-500', 'text-emerald-300');
+          }, 2000);
+        });
+      });
+    }
   </script>
 
 </body>

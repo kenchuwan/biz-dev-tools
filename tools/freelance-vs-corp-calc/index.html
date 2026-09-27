@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人事業主 vs マイクロ法人 損益分岐シミュレータ【2026年最新税制】</title>
+  <meta name="description" content="売上・利益から「個人事業主のまま」と「マイクロ法人設立」の手取り・税金・社会保険料を完全比較！いくら得するかを10秒で無料診断。">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #059669;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased pb-24 md:pb-12">
+
+  <!-- ヘッダー -->
+  <header class="bg-slate-950 border-b border-slate-800 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <a href="../../" class="text-xs text-slate-400 hover:text-white flex items-center mr-2">
+          <i class="fa-solid fa-arrow-left mr-1"></i> ポータル
+        </a>
+        <span class="bg-emerald-600 text-white text-xs font-black px-2 py-0.5 rounded">節税・法人成り</span>
+        <h1 class="text-sm md:text-base font-bold text-white truncate">個人事業主 vs マイクロ法人 損益分岐診断</h1>
+      </div>
+      <div class="flex items-center space-x-2 text-xs text-slate-400">
+        <span class="hidden sm:inline bg-emerald-950 text-emerald-400 px-2 py-0.5 rounded font-bold border border-emerald-800">
+          <i class="fa-solid fa-scale-balanced mr-1"></i> 2026年所得税・社保対応
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 py-6 md:py-8 space-y-6">
+
+    <!-- 訴求バナー -->
+    <div class="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 rounded-2xl p-6 border border-emerald-500/30 shadow-lg relative overflow-hidden">
+      <div class="max-w-2xl relative z-10">
+        <span class="inline-block bg-emerald-500/20 text-emerald-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full mb-2 border border-emerald-500/40">
+          💡 国民健康保険料と所得税を合法的に圧縮する最強スキーム
+        </span>
+        <h2 class="text-xl sm:text-2xl font-black text-white leading-snug">
+          「年商700万〜1,000万円」で個人事業主のままは大損？<br class="hidden sm:inline">マイクロ法人化による年間節税額を診断
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+          事業所得・経費を入力するだけで、個人事業主の場合の税金・国保料と、マイクロ法人（社会保険最安化スキーム）を活用した場合の手元資金の差額を即座にシミュレーションします。
+        </p>
+      </div>
+    </div>
+
+    <!-- シミュレーター入力・出力グリッド -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- 左側：入力パネル (5列) -->
+      <section class="lg:col-span-5 bg-slate-950 rounded-2xl p-5 md:p-6 border border-slate-800 shadow-sm space-y-5">
+        <h3 class="text-base font-bold text-white pb-2 border-b border-slate-800 flex items-center">
+          <i class="fa-solid fa-sliders text-emerald-400 mr-2"></i> 年商・経費条件を入力
+        </h3>
+
+        <!-- 年間売上 (年商) -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-slate-300">年間売上（年商・税抜）</label>
+            <div class="flex items-center space-x-1">
+              <input type="number" id="annual-sales" min="200" max="3000" step="50" value="800" class="w-24 text-right font-bold text-sm bg-slate-900 text-white border border-slate-700 rounded px-2 py-0.5 font-mono focus:ring-2 focus:ring-emerald-500">
+              <span class="text-xs font-bold text-slate-400">万円</span>
+            </div>
+          </div>
+          <input type="range" id="annual-sales-range" min="200" max="2500" step="50" value="800" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-500 mt-0.5">
+            <span>200万</span>
+            <span>分岐目安(800万)</span>
+            <span>2,500万</span>
+          </div>
+        </div>
+
+        <!-- 必要経費 (年間) -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-slate-300">年間経費（仕入れ・外注・家賃等）</label>
+            <div class="flex items-center space-x-1">
+              <input type="number" id="annual-expenses" min="0" max="2000" step="20" value="200" class="w-24 text-right font-bold text-sm bg-slate-900 text-white border border-slate-700 rounded px-2 py-0.5 font-mono focus:ring-2 focus:ring-emerald-500">
+              <span class="text-xs font-bold text-slate-400">万円</span>
+            </div>
+          </div>
+          <input type="range" id="annual-expenses-range" min="0" max="1500" step="20" value="200" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer">
+          <div class="flex justify-between text-[10px] text-slate-500 mt-0.5">
+            <span>0円 (IT/コンサル)</span>
+            <span>200万円</span>
+            <span>1,500万円</span>
+          </div>
+        </div>
+
+        <!-- 所得控除 (基礎控除、配偶者、扶養等) -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-slate-300">所得控除（基礎控除＋各種控除）</label>
+            <div class="flex items-center space-x-1">
+              <input type="number" id="deduction-val" min="48" max="200" step="5" value="48" class="w-20 text-right font-bold text-sm bg-slate-900 text-white border border-slate-700 rounded px-2 py-0.5 font-mono focus:ring-2 focus:ring-emerald-500">
+              <span class="text-xs font-bold text-slate-400">万円</span>
+            </div>
+          </div>
+          <p class="text-[10px] text-slate-500">※独身標準は基礎控除48万円</p>
+        </div>
+
+        <!-- 業種区分（個人事業税率に影響） -->
+        <div class="pt-2 border-t border-slate-800">
+          <label class="text-xs font-bold text-slate-300 block mb-1">業種区分（個人事業税）</label>
+          <select id="biz-category" class="w-full text-xs font-bold bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white focus:ring-2 focus:ring-emerald-500">
+            <option value="5" selected>第1種事業（物販・飲食・士業等：税率5%）</option>
+            <option value="3">第3種事業（医業等：税率3%）</option>
+            <option value="0">法定業種外・非課税（ライター・SE・デザイン等：0%）</option>
+          </select>
+        </div>
+
+      </section>
+
+      <!-- 右側：計算結果表示エリア (7列) -->
+      <section class="lg:col-span-7 space-y-4">
+
+        <!-- メインサマリカード -->
+        <div class="bg-gradient-to-br from-emerald-950 via-slate-900 to-teal-950 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden border border-emerald-500/40">
+          <div class="absolute -right-4 -bottom-4 text-8xl text-white/5 font-black pointer-events-none select-none">TAX</div>
+          <span class="text-[11px] font-bold text-emerald-300 uppercase tracking-wider block">Annual Tax & Social Insurance Savings</span>
+          <h3 class="text-sm text-slate-300 mt-0.5">マイクロ法人設立による年間手残り改善額</h3>
+
+          <div class="mt-3 flex items-baseline space-x-2">
+            <span class="text-3xl sm:text-4xl font-black text-amber-400 tracking-tight font-mono" id="res-diff-total">約 +648,000</span>
+            <span class="text-sm font-bold text-slate-300">円 / 年 おトク！</span>
+          </div>
+
+          <!-- 内訳バッジ -->
+          <div class="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-emerald-900/60 text-xs">
+            <div class="bg-white/10 rounded-xl p-3">
+              <span class="text-slate-300 text-[11px] block font-bold">🏥 社会保険・国保の差額</span>
+              <span class="text-base font-black text-emerald-400 font-mono mt-0.5 block" id="res-shaho-save">年間 約 520,000 円 削減</span>
+              <span class="text-[10px] text-slate-300 mt-1 block">国保上限(約104万) ➔ 社保最安(約26万)</span>
+            </div>
+
+            <div class="bg-white/10 rounded-xl p-3">
+              <span class="text-slate-300 text-[11px] block font-bold">⚖️ 所得税・法人税の差額</span>
+              <span class="text-base font-black text-teal-300 font-mono mt-0.5 block" id="res-tax-save">年間 約 128,000 円 削減</span>
+              <span class="text-[10px] text-slate-300 mt-1 block">給与所得控除 55万円を活用</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 比較詳細テーブル -->
+        <div class="bg-slate-950 rounded-2xl p-5 border border-slate-800 shadow-sm space-y-3 text-xs">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+            <h4 class="font-bold text-white text-sm flex items-center">
+              <i class="fa-solid fa-scale-balanced text-emerald-400 mr-2"></i>
+              年間の税金・社会保険料 比較内訳
+            </h4>
+            <span class="text-[11px] font-bold text-emerald-400 font-mono" id="res-verdict-badge">法人化を強く推奨</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div class="p-3 bg-rose-950/30 rounded-xl border border-rose-900/50">
+              <span class="text-rose-400 font-bold block text-[11px]">個人事業主のまま</span>
+              <div class="mt-2 space-y-1 text-slate-300">
+                <div class="flex justify-between"><span>所得税＋住民税:</span> <strong id="cur-income-tax">98万円</strong></div>
+                <div class="flex justify-between"><span>国民健康保険料:</span> <strong id="cur-kokuho">82万円</strong></div>
+                <div class="flex justify-between"><span>個人事業税:</span> <strong id="cur-biz-tax">14万円</strong></div>
+                <div class="flex justify-between pt-1 border-t border-rose-900/70 text-white font-bold">
+                  <span>公的負担合計:</span> <span id="cur-total-burden" class="font-mono text-rose-400">194万円</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 bg-emerald-950/30 rounded-xl border border-emerald-900/50">
+              <span class="text-emerald-400 font-bold block text-[11px]">マイクロ法人二刀流</span>
+              <div class="mt-2 space-y-1 text-slate-300">
+                <div class="flex justify-between"><span>法人税＋住民税均等:</span> <strong id="new-corp-tax">24万円</strong></div>
+                <div class="flex justify-between"><span>社会保険料（折半後）:</span> <strong id="new-shaho">26万円</strong></div>
+                <div class="flex justify-between"><span>個人の税金（低報酬）:</span> <strong id="new-ind-tax">79万円</strong></div>
+                <div class="flex justify-between pt-1 border-t border-emerald-900/70 text-white font-bold">
+                  <span>公的負担合計:</span> <span id="new-total-burden" class="font-mono text-emerald-400">129万円</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- クリップボードワンクリックコピーボタン -->
+          <button id="copy-result-btn" class="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-xl font-bold text-xs flex items-center justify-center transition border border-slate-700">
+            <i class="fa-regular fa-copy mr-2 text-emerald-400"></i> この診断結果（節税額）をコピーして保存する
+          </button>
+        </div>
+
+        <!-- ★ 高CVRアフィリエイト連携カード（会社設立・バーチャルオフィス: 単価5,000〜12,000円） -->
+        <div class="bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 rounded-2xl p-5 border border-emerald-500/40 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-emerald-300 flex items-center">
+              <i class="fa-solid fa-building-circle-check mr-1.5 text-emerald-400"></i>
+              マイクロ法人設立コストを最小化する公式ツール
+            </span>
+            <span class="text-[9px] font-bold text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">公式提携・PR</span>
+          </div>
+
+          <div class="space-y-3">
+            <!-- 案件1: freee会社設立 -->
+            <a href="https://example.com/freee-incorporation" target="_blank" rel="noopener noreferrer sponsored" class="p-3.5 bg-slate-900/90 rounded-xl border border-slate-700 hover:border-emerald-400 transition block group">
+              <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center space-x-2">
+                  <span class="font-bold text-white text-xs group-hover:text-emerald-300">freee 会社設立（電子定款で4万円節約）</span>
+                  <span class="text-[9px] font-bold text-emerald-400 bg-emerald-950 px-1.5 py-0.5 rounded">書類作成0円</span>
+                </div>
+                <span class="text-xs text-emerald-400 font-bold group-hover:translate-x-1 transition">詳細を見る →</span>
+              </div>
+              <p class="text-[11px] text-slate-300 leading-relaxed mt-1">
+                質問に答えるだけで定款や登記書類を全自動作成。電子定款対応で収入印紙代40,000円が完全に浮きます。
+              </p>
+              <div class="flex items-center space-x-3 mt-2 text-[10px] text-slate-400">
+                <span>🛡️ 司法書士不要</span>
+                <span>⚡ 最短1日で登記書類完成</span>
+                <span>💳 法人銀行口座開設サポート付</span>
+              </div>
+            </a>
+
+            <!-- 案件2: バーチャルオフィス (GMOオフィスサポート / レゾナンス) -->
+            <a href="https://example.com/virtual-office" target="_blank" rel="noopener noreferrer sponsored" class="p-3.5 bg-slate-900/90 rounded-xl border border-slate-700 hover:border-teal-400 transition block group">
+              <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center space-x-2">
+                  <span class="font-bold text-white text-xs group-hover:text-teal-300">GMOオフィスサポート（格安バーチャルオフィス）</span>
+                  <span class="text-[9px] font-bold text-teal-400 bg-teal-950 px-1.5 py-0.5 rounded">月額660円〜</span>
+                </div>
+                <span class="text-xs text-teal-400 font-bold group-hover:translate-x-1 transition">詳細を見る →</span>
+              </div>
+              <p class="text-[11px] text-slate-300 leading-relaxed mt-1">
+                自宅の住所を公開せずに渋谷・銀座・新宿の都心一等地に法人登記可能。郵便物転送も完全対応。
+              </p>
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- よくある質問（FAQ） -->
+    <section class="bg-slate-950 rounded-2xl p-6 border border-slate-800 shadow-sm space-y-4">
+      <h3 class="text-sm md:text-base font-bold text-white flex items-center">
+        <i class="fa-solid fa-circle-question text-emerald-400 mr-2"></i>
+        マイクロ法人化に関するよくある疑問
+      </h3>
+
+      <div class="space-y-3 text-xs text-slate-400">
+        <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
+          <div class="font-bold text-white mb-1">Q. マイクロ法人の設立費用と毎年の維持費はどのくらいですか？</div>
+          <p>
+            合同会社（LLC）であれば設立費用は約6万円（登録免許税）。毎年の固定費は法人住民税均等割（年7万円）と決算申告（freee等の自力申告で月数千円）のみ。手取り増加額が年間20〜30万円を超えれば確実に元が取れます。
+          </p>
+        </div>
+
+        <div class="p-3 bg-slate-900 rounded-xl border border-slate-800">
+          <div class="font-bold text-white mb-1">Q. 個人事業主と法人の二刀流はどう分ければいいですか？</div>
+          <p>
+            個人事業主側でメインの売上を立て、別事業（資産管理、Webサイト運営、コンサル業務など）をマイクロ法人で行い、役員報酬を低額に設定して社会保険に加入することで、個人の国保料を合法的に0円にできます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- スマホ固定追従CTAバー（高CVR設計） -->
+  <div class="fixed bottom-0 left-0 right-0 bg-slate-950/95 backdrop-blur-md border-t border-slate-800 p-3 sm:hidden z-50 flex items-center justify-between">
+    <div>
+      <span class="text-[10px] text-slate-400 block">マイクロ法人での年間節税額</span>
+      <span class="text-lg font-black text-amber-400 font-mono" id="floating-diff-total">約 +648,000円</span>
+    </div>
+    <a href="https://example.com/freee-incorporation" target="_blank" rel="noopener noreferrer sponsored" class="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs rounded-xl shadow-lg flex items-center">
+      設立手順を見る <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+    </a>
+  </div>
+
+  <!-- 計算スクリプト -->
+  <script>
+    const elSales = document.getElementById('annual-sales');
+    const elSalesRange = document.getElementById('annual-sales-range');
+    const elExpenses = document.getElementById('annual-expenses');
+    const elExpensesRange = document.getElementById('annual-expenses-range');
+    const elDeduction = document.getElementById('deduction-val');
+    const elBizCategory = document.getElementById('biz-category');
+
+    function sync(input, range) {
+      input.addEventListener('input', () => { range.value = input.value; calculate(); });
+      range.addEventListener('input', () => { input.value = range.value; calculate(); });
+    }
+    sync(elSales, elSalesRange);
+    sync(elExpenses, elExpensesRange);
+
+    elDeduction.addEventListener('input', calculate);
+    elBizCategory.addEventListener('change', calculate);
+
+    function calculate() {
+      const sales = (parseFloat(elSales.value) || 0) * 10000;
+      const expenses = (parseFloat(elExpenses.value) || 0) * 10000;
+      const deduction = (parseFloat(elDeduction.value) || 0) * 10000;
+      const bizTaxRate = (parseFloat(elBizCategory.value) || 0) / 100;
+
+      const netIncome = Math.max(0, sales - expenses); // 利益
+
+      // 1. 個人事業主の場合の税・社保計算
+      // 所得税概算
+      const taxableIncome = Math.max(0, netIncome - deduction - 650000); // 青色申告特別控除65万
+      let incomeTax = 0;
+      if (taxableIncome <= 1950000) incomeTax = taxableIncome * 0.05;
+      else if (taxableIncome <= 3300000) incomeTax = taxableIncome * 0.10 - 97500;
+      else if (taxableIncome <= 6950000) incomeTax = taxableIncome * 0.20 - 427500;
+      else if (taxableIncome <= 8999000) incomeTax = taxableIncome * 0.23 - 636000;
+      else incomeTax = taxableIncome * 0.33 - 1536000;
+
+      // 住民税 (約10%)
+      const residentTax = taxableIncome * 0.10;
+
+      // 個人事業税 (事業主控除290万円控除後)
+      const bizTaxable = Math.max(0, netIncome - 2900000);
+      const bizTax = bizTaxable * bizTaxRate;
+
+      // 国民健康保険料 (所得割約10%＋均等割、上限約104万円)
+      const rawKokuho = taxableIncome * 0.105 + 50000;
+      const kokuho = Math.min(1040000, Math.max(80000, Math.floor(rawKokuho)));
+
+      const curTotalBurden = incomeTax + residentTax + bizTax + kokuho;
+
+      // 2. マイクロ法人二刀流の場合の税・社保計算
+      // 役員報酬を月4.5万円（年54万円）に設定して社保最安化
+      const corpSales = Math.min(netIncome, 1000000); // 法人に100万売上移転
+      const officerSalary = 540000;
+      const corpProfit = Math.max(0, corpSales - officerSalary);
+
+      // 法人税均等割 (年7万円) ＋ 法人税(約22%)
+      const corpTax = 70000 + (corpProfit * 0.22);
+
+      // 社会保険料（最安等級：健康保険＋厚生年金折半合計で年約26万円）
+      const shaho = 264000;
+
+      // 個人事業側の残り利益
+      const remainPersonalIncome = Math.max(0, netIncome - corpSales);
+      const newTaxable = Math.max(0, remainPersonalIncome - deduction - 650000);
+      let newIncomeTax = 0;
+      if (newTaxable <= 1950000) newIncomeTax = newTaxable * 0.05;
+      else if (newTaxable <= 3300000) newIncomeTax = newTaxable * 0.10 - 97500;
+      else if (newTaxable <= 6950000) newIncomeTax = newTaxable * 0.20 - 427500;
+      else if (newTaxable <= 8999000) newIncomeTax = newTaxable * 0.23 - 636000;
+      else newIncomeTax = newTaxable * 0.33 - 1536000;
+
+      const newResidentTax = newTaxable * 0.10;
+      const newBizTax = Math.max(0, remainPersonalIncome - 2900000) * bizTaxRate;
+      // 国保は法人の社保加入により完全0円（被保険者になるため）
+      const newKokuho = 0;
+
+      const newTotalBurden = corpTax + shaho + newIncomeTax + newResidentTax + newBizTax + newKokuho;
+
+      // 削減額
+      const diffTotal = Math.floor(curTotalBurden - newTotalBurden);
+      const shahoSave = Math.floor(kokuho - shaho);
+      const taxSave = diffTotal - shahoSave;
+
+      // DOM反映
+      document.getElementById('res-diff-total').textContent = (diffTotal >= 0 ? '+約 ' : '-約 ') + Math.abs(diffTotal).toLocaleString();
+      document.getElementById('floating-diff-total').textContent = (diffTotal >= 0 ? '+約 ' : '-約 ') + Math.abs(diffTotal).toLocaleString() + '円';
+      document.getElementById('res-shaho-save').textContent = `年間 約 ${Math.max(0, shahoSave).toLocaleString()} 円 削減`;
+      document.getElementById('res-tax-save').textContent = `年間 約 ${Math.abs(taxSave).toLocaleString()} 円 ${taxSave >= 0 ? '削減' : '変動'}`;
+
+      document.getElementById('cur-income-tax').textContent = `${Math.floor((incomeTax + residentTax) / 10000)}万円`;
+      document.getElementById('cur-kokuho').textContent = `${Math.floor(kokuho / 10000)}万円`;
+      document.getElementById('cur-biz-tax').textContent = `${Math.floor(bizTax / 10000)}万円`;
+      document.getElementById('cur-total-burden').textContent = `${Math.floor(curTotalBurden / 10000)}万円`;
+
+      document.getElementById('new-corp-tax').textContent = `${Math.floor(corpTax / 10000)}万円`;
+      document.getElementById('new-shaho').textContent = `${Math.floor(shaho / 10000)}万円`;
+      document.getElementById('new-ind-tax').textContent = `${Math.floor((newIncomeTax + newResidentTax + newBizTax) / 10000)}万円`;
+      document.getElementById('new-total-burden').textContent = `${Math.floor(newTotalBurden / 10000)}万円`;
+
+      const verdictBadge = document.getElementById('res-verdict-badge');
+      if (diffTotal >= 300000) {
+        verdictBadge.textContent = '法人化を強く推奨（大幅プラス）';
+        verdictBadge.className = 'text-[11px] font-bold text-emerald-400 font-mono';
+      } else if (diffTotal > 0) {
+        verdictBadge.textContent = '法人化で節税可能';
+        verdictBadge.className = 'text-[11px] font-bold text-teal-400 font-mono';
+      } else {
+        verdictBadge.textContent = '現時点では個人事業主維持が有利';
+        verdictBadge.className = 'text-[11px] font-bold text-slate-400 font-mono';
+      }
+    }
+
+    calculate();
+
+    // コピー機能
+    const copyBtn = document.getElementById('copy-result-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const text = `【個人事業主 vs マイクロ法人 損益分岐診断結果】\n・年商: ${elSales.value}万円 / 経費: ${elExpenses.value}万円\n・個人事業主の負担合計: ${document.getElementById('cur-total-burden').textContent} ➔ マイクロ法人化後: ${document.getElementById('new-total-burden').textContent}\n・年間手残り改善額: ${document.getElementById('res-diff-total').textContent} 円 / 年\n※個人事業主 vs マイクロ法人 損益分岐シミュレータ調べ`;
+        navigator.clipboard.writeText(text).then(() => {
+          const original = copyBtn.innerHTML;
+          copyBtn.innerHTML = '<i class="fa-solid fa-check text-emerald-400 mr-2"></i> コピーしました！';
+          copyBtn.classList.add('border-emerald-500', 'text-emerald-300');
+          setTimeout(() => {
+            copyBtn.innerHTML = original;
+            copyBtn.classList.remove('border-emerald-500', 'text-emerald-300');
+          }, 2000);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
